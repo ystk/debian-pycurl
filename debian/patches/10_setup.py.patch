@@ -1,13 +1,7 @@
-#! /bin/sh /usr/share/dpatch/dpatch-run
-## 10_setup.py.dpatch by Sandro Tosi <morph@debian.org>
-##
-## All lines beginning with `## DP:' are a description of the patch.
-## DP: Adjust setup.py file for Debian architecture
-
-@DPATCH@
-diff -urNad pycurl~/setup.py pycurl/setup.py
---- pycurl~/setup.py	2008-04-22 16:00:45.000000000 +0200
-+++ pycurl/setup.py	2008-05-31 22:54:56.540671465 +0200
+Author: Sandro Tosi <morph@debian.org>
+Description: Adjust setup.py file for Debian architecture
+--- pycurl-7.19.0.orig/setup.py
++++ pycurl-7.19.0/setup.py
 @@ -17,7 +17,7 @@
  from distutils.version import LooseVersion
  
