@@ -1,23 +1,25 @@
-Description: Adapt documentation build process for Debian packaging purposes
-Author: Sandro Tosi <morph@debian.org>
+From 36f7b931a1363416d3256b98bf59474c37007fc1 Mon Sep 17 00:00:00 2001
+From: Sandro Tosi <morph@debian.org>
+Date: Tue, 30 Sep 2014 17:38:05 -0400
+Subject: Adapt documentation build process for Debian packaging purposes
+
 Origin: vendor
 Forwarded: not-needed
 Last-Update: 2014-02-15
+Patch-Name: 20_build_doc_for_debian.patch
 ---
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+ Makefile | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Makefile b/Makefile
+index 99120e7..5a2ba47 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -63,10 +63,11 @@ windist: distclean
- 	rm -rf build
+@@ -142,6 +142,7 @@ docs: build
+ 	PYTHONSUFFIX=$$(python -V 2>&1 |awk '{print $$2}' |awk -F. '{print $$1 "." $$2}') && \
+ 	PYTHONPATH=$$(ls -d build/lib.*$$PYTHONSUFFIX):$$PYTHONPATH \
+ 	sphinx-build doc build/doc
++	rst2html README.rst build/doc/README.html
  
- www docs:
--	mkdir -p build
--	rsync -av www build
-+	mkdir -p build/www/htdocs/doc
-+	#rsync -av www build
- 	cd doc && for file in *.rst; do rst2html "$$file" ../build/www/htdocs/doc/`echo "$$file" |sed -e 's/.rst$$/.html/'`; done
- 	rst2html RELEASE-NOTES.rst build/www/htdocs/release-notes.html
-+	rst2html README.rst build/www/htdocs/README.html
- 
- 
- .PHONY: all build test do-test strip install install_lib clean distclean maintainer-clean dist sdist windist
+ # Rebuild all documentation.
+ # As sphinx extracts documentation from pycurl modules, docs targets
